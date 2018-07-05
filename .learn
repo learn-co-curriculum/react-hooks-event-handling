@@ -1,5 +1,7 @@
 tags:
-  - undefined
+  - react
+  - SyntheticEvent
+  - events
 languages:
-  - undefined
+  - JavaScript
 resources: 0
