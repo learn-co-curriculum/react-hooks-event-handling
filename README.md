@@ -70,7 +70,7 @@ Now, when we click the button, we see a message in our console. Awesome! Going
 back to the [complete example](#tickler-example), let's take a quick look at the
 method. You will notice our method is an arrow function. **You will commonly see
 React component methods defined with arrow functions.** This is because we often
-want want to access the `this` keyword within the methods themselves. 
+want to access the `this` keyword within the methods themselves. 
 
 
 ## Moving Forward
