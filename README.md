@@ -33,27 +33,26 @@ have methods like `preventDefault()`, `stopPropagation()`, and so on.
 Consider the following component:
 
 <a name="tickler-example"></a>
-```js
-class Tickler extends React.Component {
 
-  tickle = () => {
-    console.log('Tee hee!')
+```jsx
+function Tickler {
+
+  function tickle() {
+    console.log('Teehee!')
   }
 
-  render() {
-    return (
-      <button>Tickle me!</button>
-    )
-  }
+  return (
+    <button>Tickle me!</button>
+  )
 }
 ```
 
 We have a `tickle()` method, but no way to trigger it! This is a perfect time to
-add an event handler so that we can see the message 'Tee Hee!' in our console.
+add an event handler so that we can see the message 'Teehee!' in our console.
 We attach event handlers to an element in React much like basic HTML:
 
 ```js
-<button onClick={this.tickle}>Tickle me!</button>
+<button onClick={tickle}>Tickle me!</button>
 ```
 
 In fact, this is exactly how we would do this with basic HTML/JS. The only
@@ -66,11 +65,7 @@ function). As a reminder, we pass the _function object itself_ and do not invoke
 the function. We are telling React's event system: "Hey! Use this thing later if
 the event associated with it is triggered".
 
-Now, when we click the button, we see a message in our console. Awesome! Going
-back to the [complete example](#tickler-example), let's take a quick look at the
-method. You will notice our method is an arrow function. **You will commonly see
-React component methods defined with arrow functions.** This is because we often
-want to access the `this` keyword within the methods themselves. 
+Now, when we click the button, we see a message in our console. Awesome!
 
 
 ## Moving Forward
