@@ -2,7 +2,7 @@
 
 ## Overview
 
-In this lesson, we'll cover the event system in React.
+In this lesson, we'll cover the event system in React. We'll learn how to attach event listeners to specific elements,
 
 ## Objectives
 
@@ -65,6 +65,66 @@ Arrow functions are a good choice if your event handler doesn't need to handle
 much logic. If you have more than one line of code to run in your event handler,
 it's a good idea to create a separate callback function (like in the first
 example).
+
+## What Can We Listen For Events On?
+
+One more thing to note about event listeners: you can only attach event handlers
+to DOM elements, _not_ React components. For example, this will not work:
+
+```js
+function Clickable() {
+  return <button>Click Me</button>;
+}
+
+function App() {
+  function handleClick() {
+    console.log("click");
+  }
+
+  return <Clickable onClick={handleClick} />;
+}
+```
+
+... but this will:
+
+```js
+function Clickable() {
+  function handleClick() {
+    console.log("click");
+  }
+  return <button onClick={handleClick}>Click Me</button>;
+}
+
+function App() {
+  return <Clickable />;
+}
+```
+
+If we want to make the first example work so that `handleClick` is called in
+`App`, we'd have to pass `onClick` as a **prop** on the `Clickable` component,
+like so:
+
+```js
+function Clickable({ onClick }) {
+  return <button onClick={onClick}>Click Me</button>;
+}
+
+function App() {
+  function handleClick() {
+    console.log("click");
+  }
+
+  return <Clickable onClick={handleClick} />;
+}
+```
+
+In this example, we're passing down a reference to the `handleClick` function as
+a **prop** called `onClick` to the `Clickable` component. Then, we're assigning
+using that prop as the callback function for the `<button>` element's `onClick`
+attribute. That way, when the `<button>` element is clicked, the callback
+function `handleClick` will be called. Whew! That's a lot to keep track of.
+We'll cover this concept of passing down callback functions as props in more
+detail later on.
 
 Let's explore a few other common event types and their use cases here. There's
 some starter code provided, so feel free to code along and test things out in
