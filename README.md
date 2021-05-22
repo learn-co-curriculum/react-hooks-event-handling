@@ -1,15 +1,14 @@
 # Event Handling in React
 
+## Learning Goals
+
+- Understand how to use React events in our application
+- Attach event listeners to JSX elements
+
 ## Overview
 
-In this lesson, we'll cover the event system in React. We'll learn how to attach event listeners to specific elements,
-
-## Objectives
-
-1. Explain how to use React events in our application
-2. Add event handlers to an element
-3. Explain how React events differ from browser events
-4. Describe how React standardizes events for compatibility
+In this lesson, we'll cover the event system in React. We'll learn how to attach
+event listeners to specific elements.
 
 ## Adding Event Handlers
 
@@ -26,13 +25,18 @@ function Tickler() {
 ```
 
 We have a `tickle()` function, but no way to trigger it! This is a perfect time
-to add an event handler so that we can see the message in our console. We attach
-event handlers to an element much like how we'd add a prop. The handler name is
-always comprised of `on`, and the event name itself — for example `click`. These
-are joined together and camel-cased, so if we wanted to add a click handler,
-we'd call the prop `onClick`. This prop takes a function as a value — it can
-either be a reference to a function (like our `tickle()` function), or an inline
-function. Most of the time, we'll use a function reference. It looks like this:
+to add an event listener so that we can see the message in our console. We attach
+event listeners to an element much like how we'd add a prop.
+
+The listener name is always comprised of `on`, and the event name itself, for
+example `click`. These are joined together and camel-cased, so if we wanted to
+add a click handler, we'd call the prop `onClick`.
+
+This prop takes a **callback function** as a value. It can either be a reference
+to a function (like our `tickle()` function), or an inline function. Most of the
+time, we'll use a function reference.
+
+All together, it looks like this:
 
 ```js
 <button onClick={tickle}>Tickle me!</button>
@@ -53,7 +57,8 @@ function Tickler() {
 
 Now, when we click the button, we see a message in our console. Awesome!
 
-We can also use arrow functions for event handlers:
+We can also use an arrow function to define an event handler inline, and pass it
+to the event listener:
 
 ```js
 function Tickler() {
@@ -68,7 +73,7 @@ example).
 
 ## What Can We Listen For Events On?
 
-One more thing to note about event listeners: you can only attach event handlers
+One more thing to note about event listeners: you can only attach event listeners
 to DOM elements, _not_ React components. For example, this will not work:
 
 ```js
@@ -183,7 +188,7 @@ We could try this:
 ```js
 function MultiButton() {
   function handleClick(number) {
-    console.log(`Button x was clicked`);
+    console.log(`Button ${number} was clicked`);
   }
 
   return (
@@ -196,13 +201,15 @@ function MultiButton() {
 }
 ```
 
-...but now, the console messages will appear as soon as our component is rendered,
-not when the button is clicked. This is why we always need to provide a _function definition_, not a _function invocation_ to our event handlers. Here's the solution:
+...but now, the console messages will appear as soon as our component is
+rendered, not when the button is clicked. This is why we always need to provide
+a _function definition_, not a _function invocation_ to our event handlers.
+Here's the solution:
 
 ```js
 function MultiButton() {
   function handleClick(number) {
-    console.log(`Button x was clicked`);
+    console.log(`Button ${number} was clicked`);
   }
 
   return (
@@ -217,7 +224,7 @@ function MultiButton() {
 
 By writing out an arrow function here, we're providing each of our button's
 `onClick` handlers a _function definition_ that will only be _invoked_ when the
-button is clicked!
+button is clicked.
 
 ### onChange
 
@@ -280,7 +287,7 @@ When the form is submitted, just like in vanilla JavaScript, you must call
 `event.preventDefault()` to prevent the form from making a network request.
 
 We'll go into forms in more detail in a later lesson, and show the preferred way
-for collecting data from _all_ the form input fields. For now, just remember -
+for collecting data from _all_ the form input fields. For now, just remember:
 use the `onSubmit` event handler, and always call `preventDefault()`!
 
 ## How Does React Handle Events?
@@ -298,19 +305,21 @@ events_, just implemented in a consistent way! That means these events also have
 methods that you can call like `preventDefault()`, `stopPropagation()`, and so
 on.
 
-## Summary
+## Conclusion
 
 In React, you can add event listeners to elements in JSX by providing a
-`onEvent` attribute and passing a _callback function_. Some commonly used event
-listeners include `onClick`, `onChange`, and `onSubmit`. You can find a full
-list of supported events
-[here](https://reactjs.org/docs/events.html#supported-events).
+`onEvent` attribute and passing a _callback function_ to be used as an event
+handler. Some commonly used event listeners include `onClick`, `onChange`, and
+`onSubmit`. You can find a full list of supported events
+[here][react supported events].
 
 React has its own internal events system that makes events behave consistently
 across various browsers.
 
 ## Resources
 
-- [React Synthetic Events](https://reactjs.org/docs/events.html)
 - [Handling Events](https://reactjs.org/docs/handling-events.html)
-- [Supported Events](https://reactjs.org/docs/events.html#supported-events)
+- [React Synthetic Events](https://reactjs.org/docs/events.html)
+- [Supported Events][react supported events]
+
+[react supported events]: https://reactjs.org/docs/events.html#supported-events
