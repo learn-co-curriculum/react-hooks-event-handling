@@ -14,7 +14,7 @@ event listeners to specific elements.
 
 Consider the following component:
 
-```js
+```jsx
 function Tickler() {
   function tickle() {
     console.log("Teehee!");
@@ -26,7 +26,7 @@ function Tickler() {
 
 We have a `tickle()` function, but no way to trigger it! This is a perfect time
 to add an event listener so that we can see the message in our console. We attach
-event listeners to an element much like how we'd add a prop.
+an event listener to an element much like we add a prop.
 
 The listener name is always comprised of `on`, and the event name itself, for
 example `click`. These are joined together and camel-cased, so if we wanted to
@@ -38,14 +38,14 @@ time, we'll use a function reference.
 
 All together, it looks like this:
 
-```js
+```jsx
 <button onClick={tickle}>Tickle me!</button>
 ```
 
 As you can see, we're passing a function _reference_, and not executing the
 `tickle` function. Our updated component looks like this:
 
-```js
+```jsx
 function Tickler() {
   function tickle() {
     console.log("Teehee!");
@@ -60,7 +60,7 @@ Now, when we click the button, we see a message in our console. Awesome!
 We can also use an arrow function to define an event handler inline, and pass it
 to the event listener:
 
-```js
+```jsx
 function Tickler() {
   return <button onClick={() => console.log("Teehee!")}>Tickle me!</button>;
 }
@@ -73,10 +73,10 @@ example).
 
 ## What Can We Listen For Events On?
 
-One more thing to note about event listeners: you can only attach event listeners
-to DOM elements, _not_ React components. For example, this will not work:
+One important thing to note about event listeners: you can only attach them to
+DOM elements, _not_ React components. For example, this will not work:
 
-```js
+```jsx
 function Clickable() {
   return <button>Click Me</button>;
 }
@@ -92,7 +92,7 @@ function App() {
 
 ... but this will:
 
-```js
+```jsx
 function Clickable() {
   function handleClick() {
     console.log("click");
@@ -109,7 +109,7 @@ If we want to make the first example work so that `handleClick` is called in
 `App`, we'd have to pass `onClick` as a **prop** on the `Clickable` component,
 like so:
 
-```js
+```jsx
 function Clickable({ onClick }) {
   return <button onClick={onClick}>Click Me</button>;
 }
@@ -124,12 +124,13 @@ function App() {
 ```
 
 In this example, we're passing down a reference to the `handleClick` function as
-a **prop** called `onClick` to the `Clickable` component. Then, we're assigning
-using that prop as the callback function for the `<button>` element's `onClick`
-attribute. That way, when the `<button>` element is clicked, the callback
-function `handleClick` will be called. Whew! That's a lot to keep track of.
-We'll cover this concept of passing down callback functions as props in more
-detail later on.
+a **prop** called `onClick` to the `Clickable` component. Then, we're using that
+prop as the callback function for the `<button>` element's `onClick` attribute.
+That way, when the `<button>` element is clicked, the callback function
+`handleClick` will be called.
+
+Whew! That's a lot to keep track of. We'll cover this concept of passing down
+callback functions as props in more detail later on.
 
 Let's explore a few other common event types and their use cases here. There's
 some starter code provided, so feel free to code along and test things out in
@@ -144,7 +145,7 @@ a click event.
 
 Update your component to look like this:
 
-```js
+```jsx
 function Tickler() {
   function tickle(event) {
     console.log(event);
@@ -154,16 +155,16 @@ function Tickler() {
 }
 ```
 
-Just like when we handle events in JavaScript, when we handle events in React,
-we can provide a `event` parameter to our event handler callback function. When
-the button is clicked, we can access all the information about the event (such
-as the event `target`, mouse coordinates via `clientX` and `clientY`, etc).
+Just as in JavaScript, when we handle events in React, we can provide an `event`
+parameter to our event handler callback function. When the button is clicked, we
+can access all the information about the event (the event `target`, mouse
+coordinates via `clientX` and `clientY`, etc).
 
 What if we wanted to pass other information to the event handler though? In the
 `MultiButton` component, we have three buttons that all share the same callback
 function for their `onClick` event:
 
-```js
+```jsx
 function MultiButton() {
   function handleClick(number) {
     console.log(`Button ${number} was clicked`);
@@ -185,7 +186,7 @@ number. If you try clicking one of those buttons now, you'll still see the
 
 We could try this:
 
-```js
+```jsx
 function MultiButton() {
   function handleClick(number) {
     console.log(`Button ${number} was clicked`);
@@ -206,7 +207,7 @@ rendered, not when the button is clicked. This is why we always need to provide
 a _function definition_, not a _function invocation_ to our event handlers.
 Here's the solution:
 
-```js
+```jsx
 function MultiButton() {
   function handleClick(number) {
     console.log(`Button ${number} was clicked`);
@@ -228,13 +229,13 @@ button is clicked.
 
 ### onChange
 
-The `onChange` attribute is useful for handling when _input values_ have
-changed. This event listener is often used with `<input>`, `<select>`, and
-`<textarea>` inputs (basically, anywhere you need to capture a user's input).
+The `onChange` attribute is useful for handling changes to _input values_. This
+event listener is often used with `<input>`, `<select>`, and `<textarea>` inputs
+(basically, anywhere you need to capture a user's input).
 
-Here are a couple examples of using the `onChange` handler:
+Here's an example of using the `onChange` handler:
 
-```js
+```jsx
 function ChangeItUp() {
   function handleChange(event) {
     console.log(`${event.target.name}: ${event.target.value}`);
@@ -259,6 +260,9 @@ function ChangeItUp() {
 }
 ```
 
+Try it out and note that, as text is entered into the `<input>` field, its value
+is captured using `event.target.value` and logged to the console.
+
 ### onSubmit
 
 Whenever you're working with `<form>` elements, handling the submit event is a
@@ -266,7 +270,7 @@ good way to interact with all the data from the form after it's been submitted.
 
 Here's a quick example:
 
-```js
+```jsx
 function Login() {
   function handleSubmit(event) {
     event.preventDefault();
@@ -307,7 +311,7 @@ on.
 
 ## Conclusion
 
-In React, you can add event listeners to elements in JSX by providing a
+In React, you can add event listeners to elements in JSX by providing an
 `onEvent` attribute and passing a _callback function_ to be used as an event
 handler. Some commonly used event listeners include `onClick`, `onChange`, and
 `onSubmit`. You can find a full list of supported events
